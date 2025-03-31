@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Каталог</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 0; padding: 10px; background: #f0f0f0; }
+    h1 { font-size: 24px; text-align: center; }
+    .catalog { display: flex; flex-wrap: wrap; justify-content: center; gap: 15px; }
+    .card { width: 150px; background: white; border: 1px solid #ddd; padding: 10px; text-align: center; }
+    .card img { width: 100%; height: 100px; background: #e0e0e0; } /* Placeholder */
+    .card label { font-size: 14px; }
+    input[type="checkbox"] { margin-top: 5px; }
+    #cart { text-align: center; margin: 20px 0; font-size: 16px; }
+    button { display: block; margin: 0 auto; padding: 10px 20px; background: #007bff; color: white; border: none; cursor: pointer; }
+    button:hover { background: #0056b3; }
+  </style>
+</head>
+<body>
+<h1>Каталог товаров</h1>
+<div class="catalog">
+  <div class="card">
+    <img src="#" alt="Фото 1"> <!-- Замени на реальную ссылку -->
+    <label>Товар 1 - 100 руб</label>
+    <input type="checkbox" id="item1" onchange="updateCart()">
+  </div>
+  <div class="card">
+    <img src="#" alt="Фото 2"> <!-- Замени на реальную ссылку -->
+    <label>Товар 2 - 200 руб</label>
+    <input type="checkbox" id="item2" onchange="updateCart()">
+  </div>
+  <div class="card">
+    <img src="#" alt="Фото 3"> <!-- Замени на реальную ссылку -->
+    <label>Товар 3 - 300 руб</label>
+    <input type="checkbox" id="item3" onchange="updateCart()">
+  </div>
+</div>
+<h2>Корзина:</h2>
+<p id="cart">Пустая корзина</p>
+<button onclick="sendCart()">Оформить заказ</button>
+
+<script src="https://telegram.org/js/telegram-web-app.js"></script>
+<script>
+  let cart = [];
+
+  function updateCart() {
+    cart = [];
+    if (document.getElementById("item1").checked) cart.push("Товар 1");
+    if (document.getElementById("item2").checked) cart.push("Товар 2");
+    if (document.getElementById("item3").checked) cart.push("Товар 3");
+    document.getElementById("cart").innerText = cart.length > 0 ? cart.join(", ") : "Пустая корзина";
+  }
+
+  function sendCart() {
+    if (cart.length > 0) {
+      Telegram.WebApp.sendData(cart.join(", "));
+    } else {
+      alert("Выберите хотя бы один товар!");
+    }
+  }
+</script>
+</body>
+</html>
